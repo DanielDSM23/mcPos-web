@@ -6,8 +6,12 @@ require_once("man-product/man-product.v.php");
 
 if(isset($_SESSION['id'])){
     DisplayNavBar(1);
-    
-    DisplayProducts();
+    if(!isset($_GET['product'])){
+        DisplayProducts();
+    }
+    if(isset($_GET['product'])){
+        DisplayProductInfos($_GET);
+    }
 
 }
 else{
