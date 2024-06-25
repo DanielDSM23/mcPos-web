@@ -66,16 +66,28 @@
         <?php
     }
     
-        if (empty($_GET['target'])) {
-            include 'auth/auth.c.php';
-        }
-        else{ ?>
-        <div class="flex">
+    if (empty($_GET['target'])) {
+        include 'auth/auth.c.php';
+    } else { 
+        $target = $_GET['target'];
+        if (file_exists($target)) { ?>
+            <div class="flex">
+                <?php include $target; ?>
+            </div>
+        <?php } else {
+            include 'nav/nav.v.php';?>
+            <div class="flex">
+                <?php
+                DisplayNavBar();
+                ?>
+                <div class="container mx-auto py-8 flex flex-col justify-center items-center">
+                    <i class="fa-solid fa-burger-cheese fa-10x"></i>
+                    <h1 class="text-7xl">Erreur 404</h1>
+                </div>
+            </div>
             <?php
-            include $_GET['target']; ?>
-        </div>
-            <?php
         }
+    }
     ?>
     <script src="https://cdn.tailwindcss.com"></script>
 </body>
