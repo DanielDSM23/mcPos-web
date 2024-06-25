@@ -4,7 +4,7 @@ require_once("database/connection.php");
 
 function GetAllProducts() {
     global $pdo;
-    $stmt = $pdo->prepare('SELECT * FROM `product` WHERE name_kiosk != "" ORDER BY category;');
+    $stmt = $pdo->prepare('SELECT * FROM product WHERE name_kiosk != "" AND id NOT IN (SELECT product_id FROM menu) ORDER BY category;');
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $namesCategory = [
