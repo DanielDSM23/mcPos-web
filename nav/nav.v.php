@@ -4,7 +4,7 @@
 function DisplayNavBar($choice){
     $array = [false, false, false];
     $array[$choice - 1] = true;
-    echo '<div class="w-64 bg-white h-svh shadow-md sticky top-16">
+    echo '<div class="w-64 bg-white h-screen-64 shadow-md sticky top-16">
             <div>
                 <div class="cursor-pointer flex items-center space-x-2 py-4 '.($array[0] ? 'bg-gray' : '').'">
                     <i class="fa-solid fa-burger-lettuce fa-2xl ml-2'.($array[0] ? ' yellow-arch' : '').'"></i>

@@ -23,13 +23,22 @@ function DisplayProducts(){
 
 
 
-function DisplayProductInfos($IN){
+function DisplayProductInfos($IN, $success = null){
     $product = GetProductInfo($IN);
     $categories = GetAllCatgories();
     $locations = GetAllLocations();
     $translationCatgory = GetAllTranslations();
-    echo '<div class="container mx-auto mt-10">
-        <form action="submit_form.php" method="post" class="bg-white p-8 rounded-xl">
+    echo '<div class="container mx-auto mt-10">';
+    $products = GetAllProducts();
+    echo '<div class="container mx-auto py-8">';
+    if($success){
+        DisplaySuccess('Vos modifications ont été prises en compte');
+    }
+    if($success == false && $success != null){
+        DisplayError("Une erreur s'est produite");
+    }
+    echo '
+        <form method="post" class="bg-white p-8 rounded-xl">
             <div class="flex flex-wrap -mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-4">
                     <h1 class="mt-4 font-semibold text-2xl">'.htmlspecialchars($product["name_kiosk"]).'</h1>
@@ -43,7 +52,7 @@ function DisplayProductInfos($IN){
                 </div>
                 <div class="w-full md:w-1/2 px-3 mb-4" required>
                     <label for="is_disabled" class="block text-gray-700">Est désactivé</label>
-                    <input type="checkbox" id="is_disabled" name="is_disabled" class="p-2 border rounded-xl '.(boolval($product["is_disabled"]) ? "checked" : '').'">
+                    <input type="checkbox" id="is_disabled" name="is_disabled" class="p-2 border rounded-xl" '.(boolval($product["is_disabled"]) ? "checked" : '').'  value="true">
                 </div>
                 <div class="w-full md:w-1/2 px-3 mb-4" required>
                     <label for="name_kiosk" class="block text-gray-700">Nom du produit caisse</label>
@@ -68,7 +77,7 @@ function DisplayProductInfos($IN){
                 </div>
                 <div class="w-full md:w-1/2 px-3 mb-4">
                     <label for="category" class="block text-gray-700">Catégorie</label>';
-                    echo '<select id="location" name="location" class="w-full p-2 border rounded-xl" required>';
+                    echo '<select id="category" name="category" class="w-full p-2 border rounded-xl" required>';
                         foreach($categories as $category){
                             echo '<option value="'.htmlspecialchars($category['name']).'" '.(($product["category"] == $category['name']) ? 'selected' : '' ).'>'.htmlspecialchars($translationCatgory[$category['name']]).'</option>';
                         }
@@ -79,5 +88,24 @@ function DisplayProductInfos($IN){
                 <button type="submit" class="cursor-pointer bg-green-900 text-white w-32 rounded-xl p-2 my-5">Modifier</button>
             </div>
         </form>
+    </div>';
+}
+
+
+
+function DisplaySuccess($msg){
+    echo'<div class="flex justify-center items-center">
+        <div class="rounded border bg-green-100 px-4 py-2 text-green-700 w-1/2" role="alert">
+            
+            <p class="text-center"><strong>Succès!</strong> '.$msg.'</p>
+        </div>
+    </div>';
+}
+
+function DisplayError($msg) {
+    echo '<div class="flex justify-center items-center">
+        <div class="rounded border bg-red-100 px-4 py-2 text-red-700 w-1/2" role="alert">
+            <p class="text-center"><strong>Erreur!</strong> ' . htmlspecialchars($msg) . '</p>
+        </div>
     </div>';
 }

@@ -40,19 +40,32 @@
         .yellow-arch{
             color:#F6B400;
         }
+        .h-screen-64{
+            height: calc(100vh - 64px);
+        }
         
     </style>
 </head>
 <body>
-    <div class="bg-green-900 text-white py-2 sticky top-0">
-        <div class="container mx-auto flex justify-center items-center">
-            <div class="flex-shrink-0">
-                <img class="h-12" src="img/logo.png" alt="Logo">
+    <?php
+    session_start();
+    if(isset($_SESSION['id'])){
+        ?>
+        <div class="bg-green-900 text-white py-2 sticky top-0">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex-shrink-0">
+                    <img class="h-12" src="img/logo.png" alt="Logo">
+                </div>
+                <div class="flex-shrink-0 ml-auto">
+                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center" onclick="window.location.href = 'index.php?target=log-off/log-off.c.php';">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Se déconnecter
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-    <?php
-        session_start();
+        <?php
+    }
+    
         if (empty($_GET['target'])) {
             include 'auth/auth.c.php';
         }

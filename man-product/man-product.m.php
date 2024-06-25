@@ -123,3 +123,35 @@ function GetAllTranslations(){
         'sauce' => 'Les Sauces'
     ];
 }
+
+
+function UpdateProductById($id, $IN){
+    if(!is_numeric($IN['price'])){
+        return false;
+    }
+    try{
+        $isDisabled = 0;
+        if(isset($IN['is_disabled'])){
+            $isDisabled = 1;
+        }
+        global $pdo;
+        $stmt = $pdo->prepare('UPDATE `product` SET `name`=:name,`is_disabled`=:is_disabled,`name_kiosk`=:name_kiosk,`location`=:location,`price`=:price,`image_url_kiosk`=:image_url_kiosk,`category`=:category WHERE `id` = :id');
+        $stmt->execute(array(
+            'name' => $IN['name'],
+            'price' => $IN['price'],
+            'category' => $IN['category'],
+            'is_disabled' => $isDisabled,
+            'name_kiosk' => $IN['name_kiosk'],
+            'location' => $IN['location'],
+            'image_url_kiosk' => $IN['image_url_kiosk'],
+            'id' => $id
+        ));
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return true;
+    }
+    catch (\PDOException $e) {
+        return false;
+    }
+    
+    
+}

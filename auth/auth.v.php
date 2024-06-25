@@ -5,7 +5,7 @@ function DisplayAuth(){
     echo '<style>';
         echo 'body { overflow: hidden; }';
     echo '</style>';
-    echo '<div class="bg-green-900 bg-cover bg-center h-screen" style="background-image: url(\'img/bg.jpeg\');">';
+    echo '<div class="bg-green-900 bg-cover bg-center h-screen shadow-xl" style="background-image: url(\'img/bg.jpeg\');">';
         echo '<div class="flex items-center justify-center h-screen">';
             echo '<div class="bg-white rounded p-16 flex flex-col w-1/3 justify-center content-center items-center">';
                 echo '<h1 class="text-3xl my-5">Connexion</h1>';
